@@ -9,16 +9,24 @@ enable_testing()
 find_package( OpenCV REQUIRED )
 include_directories( ${OpenCV_INCLUDE_DIRS} )
 
+find_package( Eigen3 3.3 REQUIRED NO_MODULE )
+include_directories( ${Eigen3_INCLUDE_DIRS} )
+
 set(HEADERS
     include/image_utils.h
+    include/geometric_verification.h
+    include/feature_matching.h
 )
 set(SOURCES
     src/image_utils.cpp
+    src/geometric_verification.cpp
+    src/feature_matching.cpp
     main.cpp
 )
 
 add_executable(StructureFromMotion ${SOURCES} ${HEADERS})
 target_link_libraries( StructureFromMotion ${OpenCV_LIBS} )
+target_link_libraries( StructureFromMotion Eigen3::Eigen )
 target_include_directories( StructureFromMotion PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include" )
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})

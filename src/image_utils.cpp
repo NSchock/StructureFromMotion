@@ -44,8 +44,7 @@ std::string readExtensions() {
 std::vector<std::string> parseExtensions(std::string extsString) {
   // TODO: this is probably not great as it changes extsString
   // but it does not change the og, as we are passing a copy
-  // also this should be placed in image_utils probably, same with rest of stuff
-  // for reading images.
+  // should use string_view instead
   std::replace(extsString.begin(), extsString.end(), ',', ' ');
 
   std::stringstream extsStream(extsString);
