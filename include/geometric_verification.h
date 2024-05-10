@@ -12,11 +12,11 @@ Eigen::Matrix3f ransacFundMat(const std::vector<MatchPoints>& matchPoints, int s
 
 std::vector<MatchPoints> assessInliers(const std::vector<MatchPoints>& matchPoints, Eigen::Matrix3f fMat);
 
-std::vector<Eigen::Matrix3f> generateFMatrix(const std::vector<MatchPoints>& sampleMatchPoints);
+std::vector<Eigen::Matrix3f> generateFMatrix(const std::vector<MatchPoints>& sampleMatchPoints, bool normalize = true);
 
-std::vector<Eigen::Matrix3f> generateFMatrix7Points(const std::vector<MatchPoints>& sampleMatchPoints);
+std::vector<Eigen::Matrix3f> generateFMatrix7Points(const std::vector<MatchPoints>& sampleMatchPoints, bool normalize = true);
 
-std::vector<Eigen::Matrix3f> generateFMatrix8Points(const std::vector<MatchPoints>& sampleMatchPoints);
+std::vector<Eigen::Matrix3f> generateFMatrix8Points(const std::vector<MatchPoints>& sampleMatchPoints, bool normalize = true);
 
 Eigen::Matrix<float, Eigen::Dynamic, 9> constructEqnMatrix(const std::vector<MatchPoints>& sampleMatchPoints);
 

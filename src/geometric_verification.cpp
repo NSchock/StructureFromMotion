@@ -10,7 +10,7 @@
 Eigen::Matrix3f ransacFundMat(const std::vector<MatchPoints>& matchPoints, int sampleSize, float inlierThreshold,
                               float prob, bool normalize, std::string eightPointAlgorithm) {
   int numSamplesTested{0};
-  float numToTest = std::numeric_limits<float>::infinity();
+  float numToTest{std::numeric_limits<float>::infinity()};
 
   float bestInlierProportion{0.0f};
 
@@ -44,15 +44,15 @@ std::vector<MatchPoints> assessInliers(const std::vector<MatchPoints>& matchPoin
   return std::vector<MatchPoints>();
 }
 
-std::vector<Eigen::Matrix3f> generateFMatrix(const std::vector<MatchPoints>& sampleMatchPoints) {
+std::vector<Eigen::Matrix3f> generateFMatrix(const std::vector<MatchPoints>& sampleMatchPoints, bool normalize) {
   return std::vector<Eigen::Matrix3f>();
 }
 
-std::vector<Eigen::Matrix3f> generateFMatrix7Points(const std::vector<MatchPoints>& sampleMatchPoints) {
+std::vector<Eigen::Matrix3f> generateFMatrix7Points(const std::vector<MatchPoints>& sampleMatchPoints, bool normalize) {
   return std::vector<Eigen::Matrix3f>();
 }
 
-std::vector<Eigen::Matrix3f> generateFMatrix8Points(const std::vector<MatchPoints>& sampleMatchPoints) {
+std::vector<Eigen::Matrix3f> generateFMatrix8Points(const std::vector<MatchPoints>& sampleMatchPoints, bool normalize) {
   return std::vector<Eigen::Matrix3f>();
 }
 
