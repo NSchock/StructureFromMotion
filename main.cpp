@@ -1,4 +1,5 @@
 #include <Eigen/Core>
+#include <Eigen/Geometry>
 #include <iostream>
 #include <opencv2/features2d.hpp>
 #include <opencv2/opencv.hpp>
@@ -8,6 +9,7 @@
 #include "feature_matching.h"
 #include "geometric_verification.h"
 #include "image_utils.h"
+#include "normalization.h"
 
 int main() {
   // Load images
@@ -32,17 +34,41 @@ int main() {
   matcher->match(descriptors[0], descriptors[1], matches);
   std::vector<MatchPoints> matchPoints{getMatchPoints(keypoints[0], keypoints[1], matches)};
 
-  // Testing constructEqnMatrix function
-  std::cout << matchPoints.size() << "\n";
+  Eigen::Vector2d pt1(4, 9);
+  Eigen::Vector2d pt2(1, 3);
+  Eigen::Vector2d pt3(2, 7);
+  std::vector<Eigen::Vector2d> pts{pt1, pt2, pt3};
 
-  std::vector<MatchPoints> sampleMatchPoints;
-  std::sample(matchPoints.begin(), matchPoints.end(), std::back_inserter(sampleMatchPoints), 7,
-              std::mt19937{std::random_device{}()});
-  for (auto matchPt : sampleMatchPoints) {
-    std::cout << matchPt.point1 << "," << matchPt.point2 << "\n";
-  }
-  auto eqnMat{constructEqnMatrix(sampleMatchPoints)};
-  std::cout << eqnMat << "\n";
+  //// testing normalization
+  auto [normalizedPoints, transformation] = normalizePoints(pts);
+  // works as expected
+
+  //Eigen::Translation2d translation{getTranslation(pts)};
+  //Eigen::UniformScaling<double> scalar{getScaling(pts)};
+  //Eigen::Transform<float, 2, Eigen::Affine> transformation{scalar * translation};
+
+  //std::vector<Eigen::Vector2f> normalizedPoints(pts.size());
+  //std::transform(pts.begin(), pts.end(), normalizedPoints.begin(),
+  //               [transformation](Eigen::Vector2f pt) { return transformation * pt; });
+  //for (const auto& normPt : normalizedPoints) {
+  //  std::cout << normPt << "\n";
+  //}
+  //std::vector<float> normalizedNorms(normalizedPoints.size());
+  //std::transform(normalizedPoints.begin(), normalizedPoints.end(), normalizedNorms.begin(),
+  //               [](Eigen::Vector2f pt) { return pt.norm(); });
+  //std::cout << std::accumulate(normalizedNorms.begin(), normalizedNorms.end(), 0.0f) / normalizedPoints.size() << "\n";
+
+  // Testing constructEqnMatrix function
+  // std::cout << matchPoints.size() << "\n";
+
+  // std::vector<MatchPoints> sampleMatchPoints;
+  // std::sample(matchPoints.begin(), matchPoints.end(), std::back_inserter(sampleMatchPoints), 7,
+  //             std::mt19937{std::random_device{}()});
+  // for (auto matchPt : sampleMatchPoints) {
+  //   std::cout << matchPt.point1 << "," << matchPt.point2 << "\n";
+  // }
+  // auto eqnMat{constructEqnMatrix(sampleMatchPoints)};
+  // std::cout << eqnMat << "\n";
 
   // Draw matches
   // cv::Mat imgMatches;

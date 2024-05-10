@@ -2,6 +2,7 @@
 #define FEATURE_MATCHING_H
 
 #include <opencv2/opencv.hpp>
+#include <Eigen/Core>
 
 struct MatchPoints {
   cv::Point2f point1;
