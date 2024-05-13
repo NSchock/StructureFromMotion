@@ -41,22 +41,11 @@ int main() {
 
   //// testing normalization
   auto [normalizedPoints, transformation] = normalizePoints(pts);
-  // works as expected
 
-  //Eigen::Translation2d translation{getTranslation(pts)};
-  //Eigen::UniformScaling<double> scalar{getScaling(pts)};
-  //Eigen::Transform<float, 2, Eigen::Affine> transformation{scalar * translation};
+  cv::Point2f ptCV(1,2);
+  Eigen::Vector2d pt(ptCV.x, ptCV.y);
+  std::cout << pt << "\n";
 
-  //std::vector<Eigen::Vector2f> normalizedPoints(pts.size());
-  //std::transform(pts.begin(), pts.end(), normalizedPoints.begin(),
-  //               [transformation](Eigen::Vector2f pt) { return transformation * pt; });
-  //for (const auto& normPt : normalizedPoints) {
-  //  std::cout << normPt << "\n";
-  //}
-  //std::vector<float> normalizedNorms(normalizedPoints.size());
-  //std::transform(normalizedPoints.begin(), normalizedPoints.end(), normalizedNorms.begin(),
-  //               [](Eigen::Vector2f pt) { return pt.norm(); });
-  //std::cout << std::accumulate(normalizedNorms.begin(), normalizedNorms.end(), 0.0f) / normalizedPoints.size() << "\n";
 
   // Testing constructEqnMatrix function
   // std::cout << matchPoints.size() << "\n";

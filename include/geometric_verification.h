@@ -18,6 +18,6 @@ std::vector<Eigen::Matrix3f> generateFMatrix7Points(const std::vector<MatchPoint
 
 std::vector<Eigen::Matrix3f> generateFMatrix8Points(const std::vector<MatchPoints>& sampleMatchPoints, bool normalize = true);
 
-Eigen::Matrix<float, Eigen::Dynamic, 9> constructEqnMatrix(const std::vector<MatchPoints>& sampleMatchPoints);
+Eigen::Matrix<float, Eigen::Dynamic, 9> constructEqnMatrix(const std::vector<MatchPoints>& matchPoints);
 
 #endif
