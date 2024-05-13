@@ -49,21 +49,23 @@ std::vector<Eigen::Matrix3f> generateFMatrix(const std::vector<MatchPoints>& sam
 }
 
 std::vector<Eigen::Matrix3f> generateFMatrix7Points(const std::vector<MatchPoints>& sampleMatchPoints, bool normalize) {
+  Eigen::Matrix<float, 7, 9> eqnMatrix{constructEqnMatrix(sampleMatchPoints)};
   return std::vector<Eigen::Matrix3f>();
 }
 
 std::vector<Eigen::Matrix3f> generateFMatrix8Points(const std::vector<MatchPoints>& sampleMatchPoints, bool normalize) {
+  Eigen::Matrix<float, 8, 9> eqnMatrix{constructEqnMatrix(sampleMatchPoints)};
   return std::vector<Eigen::Matrix3f>();
 }
 
-Eigen::Matrix<float, Eigen::Dynamic, 9> constructEqnMatrix(const std::vector<MatchPoints>& sampleMatchPoints) {
+Eigen::Matrix<float, Eigen::Dynamic, 9> constructEqnMatrix(const std::vector<MatchPoints>& matchPoints) {
   Eigen::Matrix<float, Eigen::Dynamic, 9> eqnMatrix;
-  eqnMatrix.resize(sampleMatchPoints.size(), Eigen::NoChange);
-  for (int i = 0; i < sampleMatchPoints.size(); ++i) {
-    cv::Point2f pt1{sampleMatchPoints[i].point1};
-    cv::Point2f pt2{sampleMatchPoints[i].point2};
-    Eigen::Matrix<float, 1, 9> row{pt2.x * pt1.x, pt2.x * pt1.y, pt2.x, pt2.y * pt1.x, pt2.y * pt1.y, pt2.y,
-                                   pt1.x,         pt1.y,         1};
+  eqnMatrix.resize(matchPoints.size(), Eigen::NoChange);
+  for (auto i = 0; i < matchPoints.size(); ++i) {
+    Eigen::Vector2d pt1{matchPoints[i].point1};
+    Eigen::Vector2d pt2{matchPoints[i].point2};
+    Eigen::Matrix<float, 1, 9> row{pt2[0] * pt1[0], pt2[0] * pt1[1], pt2[0], pt2[1] * pt1[0], pt2[1] * pt1[1], pt2[1],
+                                   pt1[0],          pt1[1],          1};
     eqnMatrix.row(i) = row;
   }
   return eqnMatrix;
