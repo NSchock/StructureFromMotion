@@ -34,30 +34,15 @@ int main() {
   matcher->match(descriptors[0], descriptors[1], matches);
   std::vector<MatchPoints> matchPoints{getMatchPoints(keypoints[0], keypoints[1], matches)};
 
-  Eigen::Vector2d pt1(4, 9);
-  Eigen::Vector2d pt2(1, 3);
-  Eigen::Vector2d pt3(2, 7);
-  std::vector<Eigen::Vector2d> pts{pt1, pt2, pt3};
+  auto [fundMat, inliers] = ransacFundMat(matchPoints);
+  std::cout << fundMat << "\n";
+  std::cout << "num inliers: " << inliers.size() << "\n";
+  std::cout << "num match points: " << matchPoints.size() << "\n";
 
-  //// testing normalization
-  auto [normalizedPoints, transformation] = normalizePoints(pts);
-
-  cv::Point2f ptCV(1,2);
-  Eigen::Vector2d pt(ptCV.x, ptCV.y);
-  std::cout << pt << "\n";
-
-
-  // Testing constructEqnMatrix function
-  // std::cout << matchPoints.size() << "\n";
-
-  // std::vector<MatchPoints> sampleMatchPoints;
-  // std::sample(matchPoints.begin(), matchPoints.end(), std::back_inserter(sampleMatchPoints), 7,
-  //             std::mt19937{std::random_device{}()});
-  // for (auto matchPt : sampleMatchPoints) {
-  //   std::cout << matchPt.point1 << "," << matchPt.point2 << "\n";
-  // }
-  // auto eqnMat{constructEqnMatrix(sampleMatchPoints)};
-  // std::cout << eqnMat << "\n";
+  //std::vector<MatchPoints> sampleMatchPoints;
+  //std::sample(matchPoints.begin(), matchPoints.end(), std::back_inserter(sampleMatchPoints), 7,
+  //            std::mt19937{std::random_device{}()});
+  //generateFMatrix7Points(sampleMatchPoints);
 
   // Draw matches
   // cv::Mat imgMatches;
