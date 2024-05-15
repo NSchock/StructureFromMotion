@@ -42,17 +42,24 @@ enable_testing()
 
 # Add main.cpp to compile program instead of test
 # TODO: better testing integration
-add_executable(StructureFromMotion ${SOURCES} ${HEADERS} ${TESTS})
+add_library(StructureFromMotion ${SOURCES} ${HEADERS})
 target_link_libraries( StructureFromMotion
                        ${OpenCV_LIBS}
                        Eigen3::Eigen
                        GTest::gtest_main
 )
+add_executable(StructureFromMotionExe main.cpp)
+target_link_libraries( StructureFromMotionExe StructureFromMotion )
+
+add_executable(StructureFromMotionTest ${TESTS})
+target_link_libraries( StructureFromMotionTest StructureFromMotion )
+
 target_include_directories( StructureFromMotion PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include" )
+target_include_directories( StructureFromMotionTest PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include" )
 
 include(CTest)
 include(GoogleTest)
-gtest_discover_tests(StructureFromMotion)
+gtest_discover_tests(StructureFromMotionTest)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
