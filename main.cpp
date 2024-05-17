@@ -39,10 +39,10 @@ int main() {
   std::cout << "num inliers: " << inliers.size() << "\n";
   std::cout << "num match points: " << matchPoints.size() << "\n";
 
-  //std::vector<MatchPoints> sampleMatchPoints;
-  //std::sample(matchPoints.begin(), matchPoints.end(), std::back_inserter(sampleMatchPoints), 7,
-  //            std::mt19937{std::random_device{}()});
-  //generateFMatrix7Points(sampleMatchPoints);
+  // std::vector<MatchPoints> sampleMatchPoints;
+  // std::sample(matchPoints.begin(), matchPoints.end(), std::back_inserter(sampleMatchPoints), 7,
+  //             std::mt19937{std::random_device{}()});
+  // generateFMatrix7Points(sampleMatchPoints);
 
   // Draw matches
   // cv::Mat imgMatches;

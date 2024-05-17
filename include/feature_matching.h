@@ -31,4 +31,5 @@ std::vector<MatchPoints> getMatchPoints(const std::vector<cv::KeyPoint>& keypoin
 std::vector<MatchPoints> zipPoints(const std::vector<Eigen::Vector2d>& points1,
                                    const std::vector<Eigen::Vector2d>& points2);
 
+std::tuple<std::vector<cv::Point2f>, std::vector<cv::Point2f>> unzipPoints(const std::vector<MatchPoints> matchPoints);
 #endif

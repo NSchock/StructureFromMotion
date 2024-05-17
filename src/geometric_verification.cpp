@@ -40,6 +40,7 @@ std::tuple<Eigen::Matrix3d, std::vector<MatchPoints>> ransacFundMat(const std::v
     }
     ++numSamplesTested;
   }
+  std::cout << "num samples tested: " << numSamplesTested << "\n";
   return {bestFundMat, bestInliers};
 }
 

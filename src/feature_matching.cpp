@@ -26,3 +26,13 @@ std::vector<MatchPoints> zipPoints(const std::vector<Eigen::Vector2d>& points1,
   }
   return matchPoints;
 }
+
+std::tuple<std::vector<cv::Point2f>, std::vector<cv::Point2f>> unzipPoints(const std::vector<MatchPoints> matchPoints) {
+  std::vector<cv::Point2f> points1{};
+  std::vector<cv::Point2f> points2{};
+  for (const auto& matchPoint : matchPoints) {
+    points1.push_back(cv::Point2f(matchPoint.point1[0], matchPoint.point1[1]));
+    points2.push_back(cv::Point2f(matchPoint.point2[0], matchPoint.point2[1]));
+  }
+  return {points1,points2};
+}
