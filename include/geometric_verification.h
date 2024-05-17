@@ -7,7 +7,7 @@
 #include "feature_matching.h"
 
 std::tuple<Eigen::Matrix3d, std::vector<MatchPoints>> ransacFundMat(const std::vector<MatchPoints>& matchPoints,
-                                                                    double inlierThreshold = 1.25, double prob = 0.95);
+                                                                    double inlierThreshold = 1.25, double prob = 0.99);
 
 std::vector<MatchPoints> assessInliers(const std::vector<MatchPoints>& matchPoints, Eigen::Matrix3d fMat,
                                        double threshold = 1.25);
