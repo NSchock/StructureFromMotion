@@ -10,6 +10,8 @@
 #include "geometric_verification.h"
 #include "image_utils.h"
 #include "normalization.h"
+#include "keypoint.h"
+#include "keypoint_detection.h"
 
 int main() {
   // Load images
@@ -20,24 +22,21 @@ int main() {
   auto [images, names] = loadImages(directory, extensions, cv::IMREAD_GRAYSCALE);
 
   // Compute features
-  cv::Ptr<cv::SIFT> detector = cv::SIFT::create();
-  std::vector<std::vector<cv::KeyPoint>> keypoints;
-  detector->detect(images, keypoints);
-  std::vector<cv::Mat> descriptors;
-  detector->compute(images, keypoints, descriptors);
+  SIFTDetector detector{};
+  std::vector<Keypoint> keypoints{detector.computeKeypointsWithDescriptors(images[0])};
 
   // Match features
-  cv::Ptr<cv::DescriptorMatcher> matcher = cv::DescriptorMatcher::create(cv::DescriptorMatcher::BRUTEFORCE);
-  std::vector<cv::DMatch> matches;
+  //cv::Ptr<cv::DescriptorMatcher> matcher = cv::DescriptorMatcher::create(cv::DescriptorMatcher::BRUTEFORCE);
+  //std::vector<cv::DMatch> matches;
   // For now we're just matching features from the first two images for testing purposes. Will later adapt to match
   // across entire list of images.
-  matcher->match(descriptors[0], descriptors[1], matches);
-  std::vector<MatchPoints> matchPoints{getMatchPoints(keypoints[0], keypoints[1], matches)};
+  //matcher->match(descriptors[0], descriptors[1], matches);
+  //std::vector<MatchPoints> matchPoints{getMatchPoints(keypoints[0], keypoints[1], matches)};
 
-  auto [fundMat, inliers] = ransacFundMat(matchPoints);
-  std::cout << fundMat << "\n";
-  std::cout << "num inliers: " << inliers.size() << "\n";
-  std::cout << "num match points: " << matchPoints.size() << "\n";
+  //auto [fundMat, inliers] = ransacFundMat(matchPoints);
+  //std::cout << fundMat << "\n";
+  //std::cout << "num inliers: " << inliers.size() << "\n";
+  //std::cout << "num match points: " << matchPoints.size() << "\n";
 
   // std::vector<MatchPoints> sampleMatchPoints;
   // std::sample(matchPoints.begin(), matchPoints.end(), std::back_inserter(sampleMatchPoints), 7,

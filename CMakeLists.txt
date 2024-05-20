@@ -26,12 +26,15 @@ set(HEADERS
     include/geometric_verification.h
     include/feature_matching.h
     include/normalization.h
+    include/keypoint.h
+    include/keypoint_detection.h
 )
 set(SOURCES
     src/image_utils.cpp
     src/geometric_verification.cpp
     src/feature_matching.cpp
     src/normalization.cpp
+    src/keypoint_detection.cpp
 )
 set(TESTS
     test/feature_matching_test.cpp
